@@ -19,6 +19,9 @@ jobs:
     - name: Install dependencies 
       run: npm install && gatsby-cli install
 
+    - name: Fix npm
+      run: npm audit fix
+
     - name: Run
       run: npm run setup -- --spaceId ${{ secrets.SPACE_ID }} --deliveryToken ${{ secrets.DELIVERY_TOKEN }} --managementToken ${{ secrets.MANAGEMENT_TOKEN }}
 
