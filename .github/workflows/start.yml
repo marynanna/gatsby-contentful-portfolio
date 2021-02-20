@@ -20,7 +20,7 @@ jobs:
       run: npm install
 
     - name: Run
-      run: npm run setup -- --spaceId ${{ secrets.SPACE_ID }} --deliveryToken ${{ secrets.DELIVERY_TOKEN }} --managementToken ${{ secrets.MANAGEMENT_TOKEN }}
+      run: npm run setup -- --spaceId ${{ secrets.SPACE_ID }} --deliveryToken ${{ secrets.DELIVERY_TOKEN }} --managementToken ${{ secrets.MANAGEMENT_TOKEN }} --contentToken ${{ secrets.CONTENT_TOKEN }}
 
     - name: Build gatsby
       run: gatsby build
