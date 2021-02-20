@@ -23,7 +23,7 @@ jobs:
       run: npm run setup -- --spaceId ${{ secrets.SPACE_ID }} --accessToken ${{ secrets.DELIVERY_TOKEN }} --managementToken ${{ secrets.MANAGEMENT_TOKEN }} --contentToken ${{ secrets.CONTENT_TOKEN }}
 
     - name: Install gatsby-cli
-      run: npm install -g gatsby-cli
+      run: sudo npm install -g gatsby-cli
 
     - name: Build gatsby
       run: gatsby build
