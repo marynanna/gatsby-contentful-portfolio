@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install dependencies 
-      run: npm install && gatsby-cli install
+      run: npm install --save lodash@4.17.13 && gatsby-cli install
 
     - name: Run
       run: npm run setup -- --spaceId ${{ secrets.SPACE_ID }} --deliveryToken ${{ secrets.DELIVERY_TOKEN }} --managementToken ${{ secrets.MANAGEMENT_TOKEN }}
