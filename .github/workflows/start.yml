@@ -33,7 +33,7 @@ jobs:
       with: 
         command: up
       env:
-        PULUMI_ACCES_TOKEN: ${{ secrets.PULUMI_ACCES_TOKEN }}
+        PULUMI_ACCES_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
