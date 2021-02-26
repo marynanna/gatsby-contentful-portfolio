@@ -25,7 +25,7 @@ jobs:
     - name: pulumi-up
       uses: pulumi/actions@v1
       with:
-        up
+        command: up
 
     - name: Install dependencies 
       run: npm install
