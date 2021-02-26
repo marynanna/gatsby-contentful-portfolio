@@ -4,7 +4,7 @@ import pulumi_aws as aws
 import json
 
 # Create S3 Bucket
-bucket = aws.s3.Bucket('my-bucket-github',
+bucket = aws.s3.Bucket('my-bucket-github-actions-marynenko',
 	acl="public-read",
 	website=s3.BucketWebsiteArgs(
 		index_document="index.html",
@@ -16,7 +16,7 @@ bucket = aws.s3.Bucket('my-bucket-github',
 pulumi.export('bucket_name', bucket.id)
 
 # Create Cloudfront
-s3_origin_id = "myS3Origin-test"
+s3_origin_id = "myS3Origin-github-actions-marynenko"
 s3_distribution = aws.cloudfront.Distribution("s3Distribution-test",
     origins=[aws.cloudfront.DistributionOriginArgs(
         domain_name=bucket.bucket_regional_domain_name,
@@ -60,3 +60,5 @@ s3_distribution = aws.cloudfront.Distribution("s3Distribution-test",
     viewer_certificate=aws.cloudfront.DistributionViewerCertificateArgs(
         cloudfront_default_certificate=True,
     ))
+
+pulumi.export('cloudfrontid', s3_origin_id)

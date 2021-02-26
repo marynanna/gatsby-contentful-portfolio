@@ -29,16 +29,16 @@ jobs:
       - name: Build gatsby
         run: gatsby build
 
+      - name: Install pulumi
+        uses: pulumi/action-install-pulumi-cli@v1.0.1
+        with:
+          pulumi-version: 1.4.0
+
       - uses: pulumi/actions@v1
         with:
           command: up
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-          
-      - name: Install pulumi
-        uses: pulumi/action-install-pulumi-cli@v1.0.1
-        with:
-          pulumi-version: 1.4.0
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -46,3 +46,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-2
+
+      - name: Deploy-test
+        uses: jonelantha/gatsby-s3-action@v1
+        with:
+          dest-s3-bucket: my-bucket-github-actions-marynenko
+#          cloudfront-id-to-invalidate: CLOUDFRONTID
