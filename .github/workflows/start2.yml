@@ -22,10 +22,7 @@ jobs:
 
       - uses: pulumi/actions@v1
         with:
-          command:
-            - pulumi stack init marynenko
-            - pulumi stack select marynenko --non-interactive
-            - pulumi up --non-interactive
+          command: up
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
