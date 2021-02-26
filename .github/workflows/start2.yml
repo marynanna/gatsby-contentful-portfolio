@@ -1,0 +1,44 @@
+name: Pulumi
+on:
+  push:
+    branches:
+      - master
+jobs:
+  up:
+    name: Update
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install pulumi
+        uses: pulumi/action-install-pulumi-cli@v1.0.1
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.0
+
+      - run: npm install
+
+      - uses: pulumi/actions@v2
+        with:
+          command: up
+          stack-name: marynenko
+        env:
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+
+    - name: Run
+      run: npm run setup -- --spaceId ${{ secrets.SPACE_ID }} --accessToken ${{ secrets.DELIVERY_TOKEN }} --managementToken ${{ secrets.MANAGEMENT_TOKEN }}
+
+    - name: Install gatsby-cli
+      run: sudo npm install -g gatsby-cli
+
+    - name: Build gatsby
+      run: gatsby build
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+        aws-region: us-east-2
