@@ -20,9 +20,12 @@ jobs:
 
       - run: npm install
 
-      - uses: pulumi/actions@v1
+      - uses: pulumi/pulumi
         with:
-          command: up
+          command:
+            - pulumi stack init marynenko
+            - pulumi stack select marynenko --non-interactive
+            - pulumi up --non-interactive
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
