@@ -2,7 +2,7 @@ name: Pulumi
 on:
   push:
     branches:
-      - marynenko
+      - master
 jobs:
   up:
     name: Update
@@ -42,8 +42,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-2
 
-      - name: Deploy-test
-        uses: jonelantha/gatsby-s3-action@v1
-        with:
-          dest-s3-bucket: my-bucket-github-actions-marynenko
-#          cloudfront-id-to-invalidate: CLOUDFRONTID
+      # - name: Deploy-test
+      #   uses: jonelantha/gatsby-s3-action@v1
+      #   with:
+      #     dest-s3-bucket: my-bucket-github-actions-marynenko
+      #     cloudfront-id-to-invalidate: CLOUDFRONTID
