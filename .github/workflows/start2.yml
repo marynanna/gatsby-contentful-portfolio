@@ -35,6 +35,11 @@ jobs:
       - name: Build gatsby
         run: gatsby build
 
+      - name: Install pulumi
+        uses: pulumi/action-install-pulumi-cli@v1.0.1
+        with:
+          pulumi-version: 1.4.0
+          
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
