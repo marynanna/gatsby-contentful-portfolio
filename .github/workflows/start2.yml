@@ -20,7 +20,7 @@ jobs:
 
       - run: npm install
 
-      - uses: pulumi/pulumi
+      - uses: pulumi/actions@v1
         with:
           command:
             - pulumi stack init marynenko
