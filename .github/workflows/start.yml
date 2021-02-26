@@ -16,16 +16,17 @@ jobs:
     - name: Git clone repo
       uses: actions/checkout@v2
 
-    - name: Pulumi
-      run: pulumi version && pulumi new aws-python
-      env:
-        PULUMI_ROOT: Pulumi
-        PULUMI_ACCES_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+    # - name: Pulumi
+    #   run: pulumi version && pulumi new aws-python
+
 
     - name: pulumi-up
       uses: pulumi/actions@v1
       with:
-        command: up
+        command: up --non-interactive
+      env:
+        PULUMI_ROOT: Pulumi
+        PULUMI_ACCES_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
     - name: Install dependencies 
       run: npm install
