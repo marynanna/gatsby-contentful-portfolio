@@ -1,54 +1,50 @@
-name: test-to-copy-to-s3
-env:
-  S3_BUCKET_NAME: "${{ github.sha }}" #text of commit
+# name: test-to-copy-to-s3
+# env:
+#   S3_BUCKET_NAME: "${{ github.sha }}" #text of commit
 
-on:
-  push:
-    branches:
-      - marynenko
-
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: checkout branch
-      uses: actions/checkout@v2
-
-    - name: pulumi stack
-      run: pulumi stack init marynenko
-
-    - name: pulumi-up
-      uses: pulumi/actions@v1
-      with:
-        command: up --non-interactive
-      env:
-        PULUMI_ROOT: Pulumi
-        PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+# on:
+#   push:
+#     branches:
+#       - marynenko
 
 
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    - name: Install dependencies 
-      run: npm install
+#     steps:
+#     - name: checkout branch
+#       uses: actions/checkout@v2
 
-    - name: Run
-      run: npm run setup -- --spaceId ${{ secrets.SPACE_ID }} --accessToken ${{ secrets.DELIVERY_TOKEN }} --managementToken ${{ secrets.MANAGEMENT_TOKEN }}
+#     - name: pulumi-up
+#       uses: pulumi/actions@v1
+#       with:
+#         command: up --non-interactive
+#         stack-name: marynenko
+#       env:
+#         PULUMI_ROOT: Pulumi
+#         PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
 
-    - name: Install gatsby-cli
-      run: sudo npm install -g gatsby-cli
+#     - name: Install dependencies 
+#       run: npm install
 
-    - name: Build gatsby
-      run: gatsby build
+#     - name: Run
+#       run: npm run setup -- --spaceId ${{ secrets.SPACE_ID }} --accessToken ${{ secrets.DELIVERY_TOKEN }} --managementToken ${{ secrets.MANAGEMENT_TOKEN }}
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-        aws-region: us-east-2
+#     - name: Install gatsby-cli
+#       run: sudo npm install -g gatsby-cli
+
+#     - name: Build gatsby
+#       run: gatsby build
+
+#     - name: Configure AWS Credentials
+#       uses: aws-actions/configure-aws-credentials@v1
+#       with:
+#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+#         aws-region: us-east-2
 
     # - name: Copy to S3
     #   run: aws s3 cp --recursive . s3://${{ env.S3_BUCKET_NAME }}/
