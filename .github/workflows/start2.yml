@@ -2,7 +2,7 @@ name: Pulumi
 on:
   push:
     branches:
-      - master
+      - marynenko
 jobs:
   up:
     name: Update
@@ -27,18 +27,18 @@ jobs:
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
-    - name: Run
-      run: npm run setup -- --spaceId ${{ secrets.SPACE_ID }} --accessToken ${{ secrets.DELIVERY_TOKEN }} --managementToken ${{ secrets.MANAGEMENT_TOKEN }}
+      - name: Run
+        run: npm run setup -- --spaceId ${{ secrets.SPACE_ID }} --accessToken ${{ secrets.DELIVERY_TOKEN }} --managementToken ${{ secrets.MANAGEMENT_TOKEN }}
 
-    - name: Install gatsby-cli
-      run: sudo npm install -g gatsby-cli
+      - name: Install gatsby-cli
+        run: sudo npm install -g gatsby-cli
 
-    - name: Build gatsby
-      run: gatsby build
+      - name: Build gatsby
+        run: gatsby build
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-        aws-region: us-east-2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: us-east-2
