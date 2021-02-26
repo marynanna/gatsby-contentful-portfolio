@@ -18,11 +18,15 @@ jobs:
 
     - name: Pulumi
 #      uses: pulumi/actions@v1
-      run: pulumi version && pulumi --non-interactive login 
+      run: pulumi version && pulumi new aws-python
       env:
         PULUMI_ROOT: Pulumi
         PULUMI_ACCES_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
+    - name: pulumi-up
+      with:
+        up
+        
     - name: Install dependencies 
       run: npm install
 
