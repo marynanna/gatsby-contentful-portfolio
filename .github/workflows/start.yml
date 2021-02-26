@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Pulumi
-      uses: pulumi/actions@v1
+#      uses: pulumi/actions@v1
       run: pulumi version && pulumi --non-interactive login 
       env:
         PULUMI_ROOT: Pulumi
