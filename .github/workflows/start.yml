@@ -19,7 +19,7 @@ jobs:
     - name: pulumi-up
       uses: pulumi/actions@v1
       with:
-        command: up 
+        command: up --non-interactive
       env:
         PULUMI_ROOT: Pulumi
         PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
