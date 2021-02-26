@@ -2,7 +2,7 @@ name: Pulumi
 on:
   push:
     branches:
-      - marynenko
+      - master
 jobs:
   up:
     name: Update
@@ -22,8 +22,7 @@ jobs:
 
       - uses: pulumi/actions@v1
         with:
-          command: stack init marynenko && up
-
+          command: up
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
