@@ -25,7 +25,7 @@ for file in os.listdir(content_dir):
     mime_type, _ = mimetypes.guess_type(filepath)
     obj = aws.s3.BucketObject(file,
         bucket=bucket.id,
-        source=FileAsset(filepath),
+        source=pulumi.FileAsset(filepath),
         content_type=mime_type)
 
 # Create Cloudfront
