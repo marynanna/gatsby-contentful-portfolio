@@ -23,7 +23,7 @@ pulumi.export('bucket_name', bucket.id)
 for file in os.listdir(content_dir):
     filepath = os.path.join(content_dir, file)
     mime_type, _ = mimetypes.guess_type(filepath)
-    obj = aws.s3.BucketObject(file,
+    obj = aws.s3.BucketObjects(file,
         bucket=bucket.id,
         source=pulumi.FileAsset(filepath),
         content_type=mime_type)
