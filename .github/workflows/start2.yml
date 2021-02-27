@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   up:
-    name: Update
+    name: 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -31,6 +31,7 @@ jobs:
 
       - uses: pulumi/actions@v1
         with:
+          command: new aws-python -n "test-aws-pulumi" -d "test" -s marynenko -c aws:region=us-east-2
           command: up
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
