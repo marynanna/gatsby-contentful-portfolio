@@ -15,6 +15,16 @@ bucket = aws.s3.Bucket('my-bucket-github-actions-marynenko',
 # Export the name of the bucket
 pulumi.export('bucket_name', bucket.id)
 
+content_dir = "public"
+
+for file in os.listdir(content_dir):
+    filepath = os.path.join(content_dir, file)
+    mime_type, _ = mimetypes.guess_type(filepath)
+    obj = s3.BucketObject(file,
+        bucket=bucket.id,
+        source=FileAsset(filepath),
+        content_type=mime_type)
+
 # Create Cloudfront
 s3_origin_id = "myS3Origin-github-actions-marynenko"
 s3_distribution = aws.cloudfront.Distribution("s3Distribution-test",
