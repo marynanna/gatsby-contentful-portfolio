@@ -4,6 +4,9 @@ import pulumi_aws as aws
 import json
 import mimetypes
 import os
+
+
+content_dir = './public'
 # Create S3 Bucket
 bucket = aws.s3.Bucket('my-bucket-github-actions-marynenko',
 	acl="public-read",
@@ -16,7 +19,6 @@ bucket = aws.s3.Bucket('my-bucket-github-actions-marynenko',
 # Export the name of the bucket
 pulumi.export('bucket_name', bucket.id)
 
-content_dir = "./public"
 
 for file in os.listdir(content_dir):
     filepath = os.path.join(content_dir, file)

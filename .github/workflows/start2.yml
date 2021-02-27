@@ -36,6 +36,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-2
 
+      - name: ls
+        run: ls --all
+        
       - uses: pulumi/actions@v1
         with:
           command: up
