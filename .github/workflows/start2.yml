@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - marynenko
+      
 jobs:
   up:
     name: 
