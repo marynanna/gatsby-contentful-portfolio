@@ -40,14 +40,10 @@ jobs:
         with:
           command: up
         env:
+          PULUMI_ROOT: Pulumi
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
-
-
-      # - name: Deploy-test
-      #   uses: jonelantha/gatsby-s3-action@v1
-      #   with:
-      #     dest-s3-bucket: my-bucket-github-actions-marynenko
-      #     cloudfront-id-to-invalidate: CLOUDFRONTID
+       - name: Copy to S3
+         run: aws s3 cp --recursive "./public" s3://${{ env.S3_BUCKET_NAME }}/
