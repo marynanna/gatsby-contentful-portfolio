@@ -7,6 +7,15 @@ import os
 
 
 content_dir = '../public'
+404_dir = '../public/404'
+about_dir = '../public/about'
+iceland_dir = '../public/iceland'
+icons_dir = '../public/icons'
+page_data_dir = '../public/page'
+poland_dir = '../public/poland'
+spain_dir = '../public/spain'
+static_dir = '../public/static'
+test_dir = '../public/test'
 # Create S3 Bucket
 bucket = aws.s3.Bucket('my-bucket-github-actions-marynenko',
 	acl="public-read",
@@ -23,7 +32,15 @@ pulumi.export('bucket_name', bucket.id)
 for file in os.listdir(content_dir):
     filepath = os.path.join(content_dir, file)
     mime_type, _ = mimetypes.guess_type(filepath)
-    obj = aws.s3.BucketObjects(file,
+    obj = aws.s3.BucketObject(file,
+        bucket=bucket.id,
+        source=pulumi.FileAsset(filepath),
+        content_type=mime_type)
+
+for file in os.listdir(about_dir):
+    filepath = os.path.join(about_dir, file)
+    mime_type, _ = mimetypes.guess_type(filepath)
+    obj = aws.s3.BucketObject(file,
         bucket=bucket.id,
         source=pulumi.FileAsset(filepath),
         content_type=mime_type)
