@@ -6,7 +6,7 @@ import json
 # Create S3 Bucket
 bucket = aws.s3.Bucket('my-bucket-github-actions-marynenko',
 	acl="public-read",
-	website=s3.BucketWebsiteArgs(
+	website= aws.s3.BucketWebsiteArgs(
 		index_document="index.html",
 		error_document="404.html",
 		))
