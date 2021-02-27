@@ -42,14 +42,6 @@ for file in os.listdir(content_dir):
             source=pulumi.FileAsset(filepath),
             content_type=mime_type)
 
-for file in os.listdir(about_dir):
-    filepath = os.path.join(about_dir, file)
-    mime_type, _ = mimetypes.guess_type(filepath)
-    obj = aws.s3.BucketObject(file,
-        bucket=bucket.id,
-        source=pulumi.FileAsset(filepath),
-        content_type=mime_type)
-
 # Create Cloudfront
 s3_origin_id = "myS3Origin-github-actions-marynenko"
 s3_distribution = aws.cloudfront.Distribution("s3Distribution-test",
