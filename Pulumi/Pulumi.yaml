@@ -1,0 +1,6 @@
+name: test-aws-github
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: test
