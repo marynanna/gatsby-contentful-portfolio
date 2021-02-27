@@ -6,7 +6,7 @@ import mimetypes
 import os
 
 
-content_dir = 'public'
+content_dir = '../public'
 # Create S3 Bucket
 bucket = aws.s3.Bucket('my-bucket-github-actions-marynenko',
 	acl="public-read",
