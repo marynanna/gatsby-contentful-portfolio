@@ -1,4 +1,4 @@
-name: test-aws-github
+name: test-github-pulumi
 runtime:
   name: python
   options:
