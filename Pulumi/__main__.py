@@ -7,17 +7,9 @@ import os
 
 
 content_dir = '../public'
-# 404_dir = '../public/404'
-# about_dir = '../public/about'
-# iceland_dir = '../public/iceland'
-# icons_dir = '../public/icons'
-# page_data_dir = '../public/page'
-# poland_dir = '../public/poland'
-# spain_dir = '../public/spain'
-# static_dir = '../public/static'
-# test_dir = '../public/test'
+
 # Create S3 Bucket
-bucket = aws.s3.Bucket('my-bucket-github-actions-marynenko',
+bucket = aws.s3.Bucket('my-bucket-marynenko',
 	acl="public-read",
 	website= aws.s3.BucketWebsiteArgs(
 		index_document="index.html",
@@ -43,7 +35,7 @@ for file in os.listdir(content_dir):
             content_type=mime_type)
 
 # Create Cloudfront
-s3_origin_id = "myS3Origin-github-actions-marynenko"
+s3_origin_id = "myS3Origin-marynenko"
 s3_distribution = aws.cloudfront.Distribution("s3Distribution-test",
     origins=[aws.cloudfront.DistributionOriginArgs(
         domain_name=bucket.bucket_regional_domain_name,
