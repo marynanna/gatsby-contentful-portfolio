@@ -2,7 +2,8 @@ import pulumi
 import pulumi_aws as aws
 
 import json
-
+import mimetypes
+import os
 # Create S3 Bucket
 bucket = aws.s3.Bucket('my-bucket-github-actions-marynenko',
 	acl="public-read",
