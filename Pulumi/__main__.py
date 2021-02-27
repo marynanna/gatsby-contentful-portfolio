@@ -28,14 +28,19 @@ bucket = aws.s3.Bucket('my-bucket-github-actions-marynenko',
 # Export the name of the bucket
 pulumi.export('bucket_name', bucket.id)
 
-
 for file in os.listdir(content_dir):
     filepath = os.path.join(content_dir, file)
     mime_type, _ = mimetypes.guess_type(filepath)
-    obj = aws.s3.BucketObject(file,
-        bucket=bucket.id,
-        source=pulumi.FileAsset(filepath),
-        content_type=mime_type)
+    if os.path.isdir(file):
+        obj = aws.s3.BucketObject(file,
+            bucket=bucket.id,
+            source=pulumi.FileAsset(filepath),
+            content_type=mime_type)
+    elif os.path.isfile(file):
+        obj = aws.s3.BucketObject(file,
+            bucket=bucket.id,
+            source=pulumi.FileAsset(filepath),
+            content_type=mime_type)
 
 for file in os.listdir(about_dir):
     filepath = os.path.join(about_dir, file)
