@@ -2,7 +2,7 @@ name: Pulumi
 on:
   push:
     branches:
-      - marynenko
+      - master
 
 jobs:
   up:
