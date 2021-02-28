@@ -1,0 +1,53 @@
+name: Pulumi
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  up:
+    name: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install pulumi
+        uses: pulumi/action-install-pulumi-cli@v1.0.1
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.0
+
+      - run: npm install
+
+      - name: Run
+        run: npm run setup -- --spaceId ${{ secrets.SPACE_ID }} --accessToken ${{ secrets.DELIVERY_TOKEN }} --managementToken ${{ secrets.MANAGEMENT_TOKEN }}
+
+      - name: Install gatsby-cli
+        run: sudo npm install -g gatsby-cli
+
+      - name: Build gatsby
+        run: gatsby build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: us-east-2
+
+      - uses: pulumi/actions@v1
+        with:
+          command: up
+        env:
+          PULUMI_ROOT: Pulumi
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+
+      - name: Deploy-test
+        uses: jonelantha/gatsby-s3-action@v1
+        with:
+          dest-s3-bucket: my-bucket-marynenko-dfbc053
+          cloudfront-id-to-invalidate: E3HQ09KMDWNAHM
